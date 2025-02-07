@@ -31,7 +31,7 @@ class TestController extends AbstractController
     }
 
     #[Route('/users', name: 'app_collection_users', methods: ['GET'])]
-    #[IsGranted("ROLE_ADMIN")]
+    #[IsGranted("ROLE_USER")]
     public function getCollection(SessionInterface $session): JsonResponse
     {
         $this->initializeUsers($session);
@@ -39,6 +39,7 @@ class TestController extends AbstractController
     }
 
     #[Route('/users/{id}', name: 'app_item_users', methods: ['GET'])]
+    #[IsGranted("ROLE_USER")]
     public function getItem(string $id, SessionInterface $session): JsonResponse
     {
         $this->initializeUsers($session);
@@ -47,6 +48,7 @@ class TestController extends AbstractController
     }
 
     #[Route('/users', name: 'app_create_users', methods: ['POST'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function createItem(Request $request, SessionInterface $session): JsonResponse
     {
         $this->initializeUsers($session);
@@ -71,6 +73,7 @@ class TestController extends AbstractController
     }
 
     #[Route('/users/{id}', name: 'app_delete_users', methods: ['DELETE'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function deleteItem(string $id, SessionInterface $session): JsonResponse
     {
         $this->initializeUsers($session);
@@ -88,6 +91,7 @@ class TestController extends AbstractController
     }
 
     #[Route('/users/{id}', name: 'app_update_users', methods: ['PATCH'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function updateItem(string $id, Request $request, SessionInterface $session): JsonResponse
     {
         $this->initializeUsers($session);
